@@ -6,7 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Load the pre-trained model
-model = load_model('../model.h5')
+model = load_model('model.h5')
 # Define the image size for model input
 IMG_SIZE = (128, 128)
 
