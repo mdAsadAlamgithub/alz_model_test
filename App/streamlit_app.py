@@ -1,15 +1,20 @@
 import streamlit as st
+import os
 import tensorflow as tf
+from tensorflow.keras.models import load_model
 from keras.models import load_model
 from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
 
-st.write("Current directory:", os.getcwd())
-st.write("Files in App folder:", os.listdir())
-
 # Load the pre-trained model
-model = load_model('model.h5')
+@st.cache_resource
+def get_model():
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    model_path = os.path.join(base_dir, "model.h5")
+    return load_model(model_path)
+
+model = get_model()
 # Define the image size for model input
 IMG_SIZE = (128, 128)
 
