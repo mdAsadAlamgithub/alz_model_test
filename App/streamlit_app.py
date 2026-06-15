@@ -2,7 +2,6 @@ import streamlit as st
 import os
 import tensorflow as tf
 from tensorflow.keras.models import load_model
-from keras.models import load_model
 from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
@@ -11,7 +10,15 @@ import matplotlib.pyplot as plt
 @st.cache_resource
 def get_model():
     base_dir = os.path.dirname(os.path.abspath(__file__))
+
+    st.write("Base directory:", base_dir)
+    st.write("Files in directory:", os.listdir(base_dir))
+
     model_path = os.path.join(base_dir, "model.h5")
+
+    st.write("Model path:", model_path)
+    st.write("Model exists:", os.path.exists(model_path))
+
     return load_model(model_path)
 
 model = get_model()
