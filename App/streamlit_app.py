@@ -11,13 +11,13 @@ import matplotlib.pyplot as plt
 def get_model():
     base_dir = os.path.dirname(os.path.abspath(__file__))
 
-    st.write("Base directory:", base_dir)
-    st.write("Files in directory:", os.listdir(base_dir))
+   # st.write("Base directory:", base_dir)
+    #st.write("Files in directory:", os.listdir(base_dir))
 
     model_path = os.path.join(base_dir, "model.h5")
 
-    st.write("Model path:", model_path)
-    st.write("Model exists:", os.path.exists(model_path))
+    #st.write("Model path:", model_path)
+    #st.write("Model exists:", os.path.exists(model_path))
 
     return load_model(model_path)
 
@@ -85,15 +85,16 @@ st.sidebar.markdown("Please upload an image.")
 
 
 def preprocess_image(image):
-    # plt.imsave('image2.jpg', image)
-    img_array = np.array(image)
-    rgb_image = np.repeat(img_array[:, :, np.newaxis], 3, axis=2)
-    img = Image.fromarray(img_array.astype('uint8'))
+    image = image.convert("RGB")
+    image = image.resize((128, 128))
 
+    img_array = np.array(image, dtype=np.float32)
 
-    # img.save('output1.jpg')  # Save the image to a file
+    # If training used normalization
+    img_array = img_array / 255.0
 
-    img_array = np.expand_dims(rgb_image, axis=0)
+    img_array = np.expand_dims(img_array, axis=0)
+
     return img_array
 
 
